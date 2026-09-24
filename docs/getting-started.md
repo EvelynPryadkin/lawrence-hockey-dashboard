@@ -1,5 +1,7 @@
 # Your first session in VS Code
 
+**Data is now included:** 25 games from 2025–26 are in `data/raw/games.csv`. After installing dependencies, run `python -m src.prepare_data` before starting Streamlit. The collection steps below explain how to review or extend the dataset. See `sources.md` for the unresolved power-play discrepancy.
+
 ## 1. Open the project
 
 Unzip the download if needed. In VS Code choose File → Open Folder and select `lawrence-hockey-dashboard`. Open Terminal → New Terminal. The terminal should be inside the folder containing `app.py`.
@@ -23,7 +25,7 @@ The `.venv` folder keeps this project's packages separate. When opening a new te
 python -m streamlit run app.py
 ```
 
-Open the local URL printed in the terminal. An empty-data message is expected. Control-C stops the server; it does not delete your work.
+Open the local URL printed in the terminal. An empty-data message means you need to run the preparation command first. Control-C stops the server; it does not delete your work.
 
 ## 4. Collect five real games
 

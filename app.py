@@ -37,6 +37,9 @@ def percentage(numerator, denominator, complement=False):
     return f"{100 * (1 - value if complement else value):.1f}%"
 
 
+if "2025-26" in games["season"].values:
+    st.warning("2025–26 source note: opponent power-play opportunities total 92 in the individual box scores, versus 91 in the season summary. This dashboard uses the box-score counts (full-season penalty kill: 76.1%). See docs/sources.md.")
+
 totals = games.select_dtypes(include="number").sum()
 cards = st.columns(5)
 cards[0].metric("Games", len(games))
