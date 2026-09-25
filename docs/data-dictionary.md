@@ -1,6 +1,6 @@
 # Data dictionary
 
-One row = one completed game, from Lawrence's perspective. Start with 2025–26.
+One row = one completed game, from Lawrence's perspective. Seasons 2020–21 through 2025–26 are included.
 
 | Column | Format / meaning |
 | --- | --- |
@@ -18,7 +18,7 @@ One row = one completed game, from Lawrence's perspective. Start with 2025–26.
 | opponent_pp_opportunities | Opponent power-play opportunities |
 | source_url | HTTPS link to the public box score |
 
-All eight count fields must be nonnegative integers. Unknown values may be left blank during collection but must be resolved before this starter imports them. Exclude exhibitions or document an explicit inclusion policy before collecting. Verify shootout conventions separately: shootout attempts are not regular goals or shots in this dataset.
+Count fields must be nonnegative integers when present. Only `pp_opportunities` and `opponent_pp_opportunities` may be blank; these become SQL NULL. All other fields are required. Exclude exhibitions or document an explicit inclusion policy before collecting. Verify shootout conventions separately: shootout attempts are not regular goals or shots in this dataset.
 
 ## Calculations
 
@@ -28,4 +28,4 @@ All eight count fields must be nonnegative integers. Unknown values may be left 
 - Penalty-kill percentage = 100 × (1 − summed opponent power-play goals / summed opponent opportunities).
 - Goal difference = goals for − goals against.
 
-Never average game-level percentages to calculate a season rate. Zero opportunities/shots produce N/A, not 0%. Check game counts and totals against the official cumulative report before publishing a completed-season analysis.
+Never average game-level percentages to calculate a season rate. Zero opportunities/shots produce N/A, not 0%. A missing opportunity count in any selected game makes the corresponding aggregate rate N/A (SQL NULL). Check game counts and totals against the official cumulative report before publishing a completed-season analysis.

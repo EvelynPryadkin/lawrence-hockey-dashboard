@@ -1,4 +1,117 @@
 date,season,opponent,location,goals_for,goals_against,shots_for,shots_against,pp_goals,pp_opportunities,opponent_pp_goals,opponent_pp_opportunities,source_url
+2021-02-13,2020-21,St. Scholastica,home,1,9,15,79,0,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/college-of-st-scholastica/boxscore/3585
+2021-02-14,2020-21,St. Scholastica,away,2,9,13,72,0,3,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/college-of-st-scholastica/boxscore/3584
+2021-02-19,2020-21,Marian (WI),home,2,6,29,53,1,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/marian-university/boxscore/3586
+2021-02-20,2020-21,Marian (WI),away,2,6,26,53,1,,4,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/marian-university/boxscore/3587
+2021-02-26,2020-21,Concordia Wisconsin,away,1,9,11,60,0,1,0,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/concordia-university-wis-/boxscore/3588
+2021-02-27,2020-21,Concordia Wisconsin,home,1,6,20,58,0,,1,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/concordia-university-wis-/boxscore/3589
+2021-03-06,2020-21,Concordia Wisconsin,away,0,8,19,50,0,5,1,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/concordia-university-wis-/boxscore/3590
+2021-03-07,2020-21,Concordia Wisconsin,home,0,8,16,60,0,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/concordia-university-wis-/boxscore/3591
+2021-03-10,2020-21,St. Scholastica,away,0,9,15,83,0,2,5,8,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21/college-of-st-scholastica/boxscore/3592
+2021-10-29,2021-22,Wis.-Superior,away,0,8,4,75,0,2,1,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/university-of-wisconsin-superior/boxscore/3805
+2021-10-30,2021-22,Wis.-Superior,away,0,10,7,72,0,5,1,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/university-of-wisconsin-superior/boxscore/3806
+2021-11-02,2021-22,Concordia Wisconsin,away,0,11,9,73,0,7,3,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/concordia-university-wis-/boxscore/3807
+2021-11-05,2021-22,St. Catherine,away,0,6,15,46,0,4,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/st-catherine-university/boxscore/3808
+2021-11-06,2021-22,St. Catherine,away,0,3,17,36,0,4,2,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/st-catherine-university/boxscore/3809
+2021-11-12,2021-22,St. Norbert,away,1,7,10,47,1,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/st-norbert-college/boxscore/3810
+2021-11-14,2021-22,St. Norbert,home,0,6,14,35,0,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/st-norbert-college/boxscore/3811
+2021-12-03,2021-22,Aurora,home,1,13,18,55,0,,5,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/aurora-university/boxscore/3812
+2021-12-04,2021-22,Aurora,home,0,6,10,77,0,,3,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/aurora-university/boxscore/3813
+2021-12-31,2021-22,Wis.-Stevens Point,home,1,7,15,69,1,,3,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/university-of-wisconsin-stevens-point/boxscore/3814
+2022-01-01,2021-22,Wis.-Stevens Point,away,0,8,11,57,0,4,2,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/university-of-wisconsin-stevens-point/boxscore/3815
+2022-01-20,2021-22,Adrian,home,0,8,7,73,0,,0,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/adrian-college/boxscore/4092
+2022-01-21,2021-22,Marian (WI),home,2,7,33,43,1,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/marian-university/boxscore/3820
+2022-01-22,2021-22,Marian (WI),away,0,1,21,38,0,,0,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/marian-university/boxscore/3821
+2022-01-28,2021-22,Finlandia,away,1,5,14,45,0,4,1,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/finlandia-university/boxscore/3822
+2022-01-29,2021-22,Finlandia,away,1,2,21,33,0,5,1,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/finlandia-university/boxscore/3823
+2022-02-04,2021-22,Lake Forest,away,0,6,12,60,0,3,3,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/lake-forest-college/boxscore/3824
+2022-02-05,2021-22,Lake Forest,home,3,4,13,61,1,,1,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/lake-forest-college/boxscore/3825
+2022-02-06,2021-22,Adrian,home,0,7,7,70,0,,0,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/adrian-college/boxscore/3819
+2022-02-11,2021-22,Concordia Wisconsin,away,0,8,11,56,0,2,4,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/concordia-university-wis-/boxscore/3826
+2022-02-12,2021-22,Concordia Wisconsin,home,4,9,13,50,2,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/concordia-university-wis-/boxscore/3827
+2022-02-18,2021-22,Trine,home,2,9,16,41,2,,3,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/trine-university/boxscore/3828
+2022-02-19,2021-22,Trine,home,1,6,7,39,0,,4,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22/trine-university/boxscore/3829
+2022-10-28,2022-23,Wis.-Superior,home,0,5,17,49,0,2,0,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/university-of-wisconsin-superior/boxscore/4221
+2022-10-29,2022-23,Wis.-Superior,home,2,3,24,35,1,5,1,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/university-of-wisconsin-superior/boxscore/4222
+2022-11-04,2022-23,St. Catherine,away,0,6,11,35,0,5,2,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/st-catherine-university/boxscore/4223
+2022-11-05,2022-23,St. Catherine,away,2,3,16,37,0,5,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/st-catherine-university/boxscore/4224
+2022-11-11,2022-23,St. Norbert,away,1,8,10,49,1,,3,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/st-norbert-college/boxscore/4225
+2022-11-12,2022-23,St. Norbert,home,0,10,7,55,0,3,4,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/st-norbert-college/boxscore/4226
+2022-11-16,2022-23,Wis.-Stevens Point,away,0,5,23,44,0,1,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/university-of-wisconsin-stevens-point/boxscore/4227
+2022-11-25,2022-23,Northland,away,1,4,19,36,1,3,0,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/northland-college/boxscore/4228
+2022-11-26,2022-23,Northland,away,2,0,29,29,0,5,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/northland-college/boxscore/4229
+2022-12-02,2022-23,Aurora,away,0,5,17,61,0,5,0,1,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/aurora-university/boxscore/4230
+2022-12-03,2022-23,Aurora,away,1,11,16,53,0,8,2,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/aurora-university/boxscore/4231
+2022-12-09,2022-23,Saint Mary's (MN),home,0,3,15,59,0,3,0,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/saint-marys-university-minn-/boxscore/4232
+2022-12-10,2022-23,Saint Mary's (MN),home,0,8,13,62,0,2,2,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/saint-marys-university-minn-/boxscore/4233
+2023-01-13,2022-23,Adrian,away,0,14,7,81,0,3,3,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/adrian-college/boxscore/4234
+2023-01-14,2022-23,Adrian,away,0,9,10,69,0,2,3,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/adrian-college/boxscore/4235
+2023-01-19,2022-23,Marian (WI),home,2,3,32,40,0,7,1,8,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/marian-university/boxscore/4236
+2023-01-20,2022-23,Marian (WI),away,1,3,23,43,0,6,0,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/marian-university/boxscore/4237
+2023-01-27,2022-23,Finlandia,home,4,1,52,26,1,6,0,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/finlandia-university/boxscore/4238
+2023-01-28,2022-23,Finlandia,home,3,1,65,19,0,6,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/finlandia-university/boxscore/4239
+2023-02-04,2022-23,Lake Forest,away,0,8,17,75,0,4,0,10,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/lake-forest-college/boxscore/4240
+2023-02-05,2022-23,Lake Forest,home,1,6,14,61,0,4,1,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/lake-forest-college/boxscore/4241
+2023-02-10,2022-23,Concordia Wisconsin,home,0,6,18,37,0,3,2,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/concordia-university-wis-/boxscore/4242
+2023-02-11,2022-23,Concordia Wisconsin,away,1,6,22,58,0,3,3,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/concordia-university-wis-/boxscore/4243
+2023-02-17,2022-23,Trine,away,0,3,23,26,0,2,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/trine-university/boxscore/4244
+2023-02-18,2022-23,Trine,away,0,4,27,26,0,6,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/trine-university/boxscore/4245
+2023-02-24,2022-23,Adrian,away,0,10,9,65,0,3,2,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/adrian-college/boxscore/4563
+2023-02-25,2022-23,Adrian,away,0,5,2,69,0,4,2,9,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23/adrian-college/boxscore/4564
+2023-10-27,2023-24,Wis.-Superior,away,1,2,19,32,0,3,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/university-of-wisconsin-superior/boxscore/4719
+2023-10-28,2023-24,Wis.-Superior,away,1,3,17,37,0,4,1,1,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/university-of-wisconsin-superior/boxscore/4720
+2023-11-10,2023-24,Aurora,away,1,8,12,62,0,5,0,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/aurora-university/boxscore/4723
+2023-11-11,2023-24,Aurora,away,0,8,15,71,0,5,3,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/aurora-university/boxscore/4724
+2023-11-17,2023-24,Concordia Wisconsin,away,3,6,24,39,0,3,1,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/concordia-university-wis-/boxscore/4725
+2023-11-18,2023-24,Concordia Wisconsin,home,3,4,24,27,0,3,2,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/concordia-university-wis-/boxscore/4726
+2023-11-21,2023-24,Marian (WI),home,1,1,37,26,0,3,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/marian-university/boxscore/4777
+2023-11-25,2023-24,Northland,home,3,1,28,19,1,6,1,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/northland-college/boxscore/4727
+2023-11-26,2023-24,Northland,home,1,2,26,31,0,3,1,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/northland-college/boxscore/4728
+2023-11-29,2023-24,St. Norbert,away,0,9,17,45,0,,2,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/st-norbert-college/boxscore/4776
+2023-12-01,2023-24,Lake Forest,home,0,4,26,35,0,3,2,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/lake-forest-college/boxscore/4729
+2023-12-02,2023-24,Lake Forest,away,1,2,21,36,0,3,1,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/lake-forest-college/boxscore/4730
+2023-12-08,2023-24,Concordia Wisconsin,home,1,3,26,34,0,2,0,1,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/concordia-university-wis-/boxscore/4731
+2023-12-09,2023-24,Concordia Wisconsin,away,2,5,20,47,0,2,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/concordia-university-wis-/boxscore/4732
+2024-01-12,2023-24,Adrian,away,0,5,9,61,0,1,3,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/adrian-college/boxscore/4734
+2024-01-13,2023-24,Adrian,away,0,6,11,62,0,2,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/adrian-college/boxscore/4735
+2024-01-19,2023-24,Dubuque,home,1,0,34,29,1,3,0,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/university-of-dubuque/boxscore/4736
+2024-01-20,2023-24,Dubuque,home,4,2,27,39,1,5,0,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/university-of-dubuque/boxscore/4737
+2024-01-23,2023-24,Saint Mary's (MN),away,1,4,9,62,0,1,0,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/saint-marys-university-minn-/boxscore/4733
+2024-01-26,2023-24,St. Norbert,away,1,7,20,50,0,,0,,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/st-norbert-college/boxscore/4738
+2024-01-27,2023-24,St. Norbert,home,0,5,17,34,0,4,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/st-norbert-college/boxscore/4739
+2024-02-02,2023-24,Trine,home,0,2,32,19,0,2,1,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/trine-university/boxscore/4740
+2024-02-03,2023-24,Trine,home,0,4,31,21,0,6,1,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/trine-university/boxscore/4741
+2024-02-09,2023-24,Marian (WI),away,0,4,17,33,0,3,0,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/marian-university/boxscore/4742
+2024-02-10,2023-24,Marian (WI),home,4,0,27,26,1,2,0,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/marian-university/boxscore/4743
+2024-02-16,2023-24,Adrian,away,1,4,18,63,1,5,2,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/adrian-college/boxscore/4950
+2024-02-17,2023-24,Adrian,away,0,4,12,47,0,4,1,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24/adrian-college/boxscore/4951
+2024-11-01,2024-25,Hamline,away,0,6,4,73,0,4,1,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/hamline-university/boxscore/5160
+2024-11-02,2024-25,Hamline,away,1,8,3,69,1,2,0,1,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/hamline-university/boxscore/5161
+2024-11-08,2024-25,MSOE,away,2,3,18,24,0,3,2,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/milwaukee-school-of-engineering/boxscore/5162
+2024-11-09,2024-25,MSOE,home,2,1,16,24,0,2,1,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/milwaukee-school-of-engineering/boxscore/5163
+2024-11-15,2024-25,Lake Forest,home,0,3,18,28,0,3,1,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/lake-forest-college/boxscore/5164
+2024-11-16,2024-25,Lake Forest,away,3,3,17,69,0,,0,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/lake-forest-college/boxscore/5165
+2024-11-22,2024-25,Adrian,away,0,10,4,69,0,2,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/adrian-college/boxscore/5166
+2024-11-23,2024-25,Adrian,away,1,12,8,64,0,2,1,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/adrian-college/boxscore/5167
+2024-11-29,2024-25,Northland,away,4,2,40,17,1,3,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/northland-college/boxscore/5168
+2024-11-30,2024-25,Northland,away,3,1,31,29,0,2,1,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/northland-college/boxscore/5169
+2024-12-06,2024-25,Aurora,away,2,3,18,32,0,3,0,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/aurora-university/boxscore/5170
+2024-12-07,2024-25,Aurora,home,2,1,28,49,0,1,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/aurora-university/boxscore/5171
+2024-12-13,2024-25,Marian (WI),home,3,2,39,31,0,2,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/marian-university/boxscore/5172
+2024-12-14,2024-25,Marian (WI),away,1,2,19,36,0,1,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/marian-university/boxscore/5173
+2025-01-11,2024-25,St. Catherine,neutral,1,2,15,34,0,5,1,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/st-catherine-university/boxscore/5174
+2025-01-17,2024-25,Trine,home,3,2,19,21,1,1,1,1,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/trine-university/boxscore/5175
+2025-01-18,2024-25,Trine,home,0,3,25,22,0,2,0,1,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/trine-university/boxscore/5176
+2025-01-24,2024-25,Marian (WI),home,1,1,26,29,0,2,0,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/marian-university/boxscore/5177
+2025-01-25,2024-25,Marian (WI),away,0,0,25,34,0,3,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/marian-university/boxscore/5178
+2025-01-31,2024-25,Concordia Wisconsin,away,0,7,11,53,0,2,1,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/concordia-university-wis-/boxscore/5179
+2025-02-01,2024-25,Concordia Wisconsin,home,0,5,15,36,0,4,1,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/concordia-university-wis-/boxscore/5180
+2025-02-07,2024-25,Dubuque,away,0,0,28,33,0,5,0,2,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/university-of-dubuque/boxscore/5181
+2025-02-08,2024-25,Dubuque,away,1,3,21,22,0,5,0,5,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/university-of-dubuque/boxscore/5182
+2025-02-14,2024-25,St. Norbert,away,2,6,10,46,0,1,3,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/st-norbert-college/boxscore/5183
+2025-02-15,2024-25,St. Norbert,home,2,6,11,38,0,2,0,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/st-norbert-college/boxscore/5184
+2025-02-21,2024-25,St. Norbert,away,1,6,15,37,0,7,1,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/st-norbert-college/boxscore/5453
+2025-02-22,2024-25,St. Norbert,away,2,7,8,60,1,5,1,7,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25/st-norbert-college/boxscore/5454
 2025-10-31,2025-26,St. Scholastica,home,0,1,7,30,0,3,1,3,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2025-26/college-of-st-scholastica/boxscore/5661
 2025-11-01,2025-26,St. Scholastica,home,1,3,5,31,0,5,1,6,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2025-26/college-of-st-scholastica/boxscore/5662
 2025-11-04,2025-26,Beloit,home,0,2,21,25,0,2,1,4,https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2025-26/beloit-college/boxscore/5663

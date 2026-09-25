@@ -13,6 +13,7 @@ COUNTS = ["goals_for", "goals_against", "shots_for", "shots_against",
           "pp_goals", "pp_opportunities", "opponent_pp_goals",
           "opponent_pp_opportunities"]
 COLUMNS = ["date", "season", "opponent", "location", *COUNTS, "source_url"]
+OPTIONAL_COUNTS = {"pp_opportunities", "opponent_pp_opportunities"}
 
 
 def clean_games(frame):
@@ -33,13 +34,14 @@ def clean_games(frame):
         raise ValueError("Location must be home, away, or neutral.")
     if not df["source_url"].str.startswith("https://").all():
         raise ValueError("Each game needs an https:// source URL.")
-    if df.duplicated(["date", "opponent"]).any():
-        raise ValueError("Duplicate date/opponent found; resolve before importing.")
+    if df.duplicated(["season", "date", "opponent"]).any():
+        raise ValueError("Duplicate season/date/opponent found; resolve before importing.")
     for col in COUNTS:
         values = pd.to_numeric(df[col], errors="raise")
-        if values.isna().any() or (values < 0).any() or (values % 1 != 0).any():
-            raise ValueError(f"{col} must contain nonnegative whole numbers, with no blanks.")
-        df[col] = values.astype("int64")
+        present = values.dropna()
+        if (col not in OPTIONAL_COUNTS and values.isna().any()) or (present < 0).any() or (present % 1 != 0).any():
+            raise ValueError(f"{col} must contain nonnegative whole numbers; only opportunity counts may be blank.")
+        df[col] = values.astype("Int64")
     for smaller, larger in [("goals_for", "shots_for"), ("goals_against", "shots_against"),
                             ("pp_goals", "pp_opportunities"), ("pp_goals", "goals_for"),
                             ("opponent_pp_goals", "opponent_pp_opportunities"),
