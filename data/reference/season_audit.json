@@ -1,0 +1,254 @@
+[
+  {
+    "season": "2020-21",
+    "games": 9,
+    "totals": {
+      "goals_for": 9,
+      "goals_against": 70,
+      "shots_for": 164,
+      "shots_against": 568,
+      "pp_goals": 2,
+      "pp_opportunities": 11,
+      "opponent_pp_goals": 17,
+      "opponent_pp_opportunities": 19
+    },
+    "summary": {
+      "goals_for": 9,
+      "shots_for": 164,
+      "goals_against": 70,
+      "shots_against": 568,
+      "pp_goals": 2,
+      "pp_opportunities": 32,
+      "opponent_pp_goals": 17,
+      "opponent_pp_opportunities": 39
+    },
+    "missing": {
+      "goals_for": 0,
+      "goals_against": 0,
+      "shots_for": 0,
+      "shots_against": 0,
+      "pp_goals": 0,
+      "pp_opportunities": 5,
+      "opponent_pp_goals": 0,
+      "opponent_pp_opportunities": 5
+    },
+    "locations": {
+      "home": 4,
+      "away": 5,
+      "neutral": 0
+    },
+    "source_url": "https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2020-21",
+    "retrieved_on": "2026-09-25",
+    "totals_note": "Opportunity totals sum known values only; consult missing counts before comparing to the full-season summary."
+  },
+  {
+    "season": "2021-22",
+    "games": 23,
+    "totals": {
+      "goals_for": 17,
+      "goals_against": 157,
+      "shots_for": 305,
+      "shots_against": 1251,
+      "pp_goals": 8,
+      "pp_opportunities": 40,
+      "opponent_pp_goals": 45,
+      "opponent_pp_opportunities": 49
+    },
+    "summary": {
+      "goals_for": 17,
+      "shots_for": 305,
+      "goals_against": 157,
+      "shots_against": 1251,
+      "pp_goals": 8,
+      "pp_opportunities": 94,
+      "opponent_pp_goals": 45,
+      "opponent_pp_opportunities": 127
+    },
+    "missing": {
+      "goals_for": 0,
+      "goals_against": 0,
+      "shots_for": 0,
+      "shots_against": 0,
+      "pp_goals": 0,
+      "pp_opportunities": 13,
+      "opponent_pp_goals": 0,
+      "opponent_pp_opportunities": 13
+    },
+    "locations": {
+      "home": 11,
+      "away": 12,
+      "neutral": 0
+    },
+    "source_url": "https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2021-22",
+    "retrieved_on": "2026-09-25",
+    "totals_note": "Opportunity totals sum known values only; consult missing counts before comparing to the full-season summary."
+  },
+  {
+    "season": "2022-23",
+    "games": 27,
+    "totals": {
+      "goals_for": 21,
+      "goals_against": 150,
+      "shots_for": 538,
+      "shots_against": 1299,
+      "pp_goals": 4,
+      "pp_opportunities": 106,
+      "opponent_pp_goals": 31,
+      "opponent_pp_opportunities": 125
+    },
+    "summary": {
+      "goals_for": 21,
+      "shots_for": 538,
+      "goals_against": 150,
+      "shots_against": 1299,
+      "pp_goals": 4,
+      "pp_opportunities": 108,
+      "opponent_pp_goals": 31,
+      "opponent_pp_opportunities": 130
+    },
+    "missing": {
+      "goals_for": 0,
+      "goals_against": 0,
+      "shots_for": 0,
+      "shots_against": 0,
+      "pp_goals": 0,
+      "pp_opportunities": 1,
+      "opponent_pp_goals": 0,
+      "opponent_pp_opportunities": 1
+    },
+    "locations": {
+      "home": 10,
+      "away": 17,
+      "neutral": 0
+    },
+    "source_url": "https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2022-23",
+    "retrieved_on": "2026-09-25",
+    "totals_note": "Opportunity totals sum known values only; consult missing counts before comparing to the full-season summary."
+  },
+  {
+    "season": "2023-24",
+    "games": 27,
+    "totals": {
+      "goals_for": 30,
+      "goals_against": 105,
+      "shots_for": 576,
+      "shots_against": 1087,
+      "pp_goals": 5,
+      "pp_opportunities": 83,
+      "opponent_pp_goals": 22,
+      "opponent_pp_opportunities": 98
+    },
+    "summary": {
+      "goals_for": 30,
+      "shots_for": 576,
+      "goals_against": 105,
+      "shots_against": 1087,
+      "pp_goals": 5,
+      "pp_opportunities": 88,
+      "opponent_pp_goals": 22,
+      "opponent_pp_opportunities": 107
+    },
+    "missing": {
+      "goals_for": 0,
+      "goals_against": 0,
+      "shots_for": 0,
+      "shots_against": 0,
+      "pp_goals": 0,
+      "pp_opportunities": 2,
+      "opponent_pp_goals": 0,
+      "opponent_pp_opportunities": 3
+    },
+    "locations": {
+      "home": 12,
+      "away": 15,
+      "neutral": 0
+    },
+    "source_url": "https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2023-24",
+    "retrieved_on": "2026-09-25",
+    "totals_note": "Opportunity totals sum known values only; consult missing counts before comparing to the full-season summary."
+  },
+  {
+    "season": "2024-25",
+    "games": 27,
+    "totals": {
+      "goals_for": 37,
+      "goals_against": 105,
+      "shots_for": 492,
+      "shots_against": 1079,
+      "pp_goals": 4,
+      "pp_opportunities": 74,
+      "opponent_pp_goals": 16,
+      "opponent_pp_opportunities": 92
+    },
+    "summary": {
+      "goals_for": 37,
+      "shots_for": 492,
+      "goals_against": 105,
+      "shots_against": 1079,
+      "pp_goals": 4,
+      "pp_opportunities": 72,
+      "opponent_pp_goals": 16,
+      "opponent_pp_opportunities": 91
+    },
+    "missing": {
+      "goals_for": 0,
+      "goals_against": 0,
+      "shots_for": 0,
+      "shots_against": 0,
+      "pp_goals": 0,
+      "pp_opportunities": 1,
+      "opponent_pp_goals": 0,
+      "opponent_pp_opportunities": 0
+    },
+    "locations": {
+      "home": 9,
+      "away": 17,
+      "neutral": 1
+    },
+    "source_url": "https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2024-25",
+    "retrieved_on": "2026-09-25",
+    "totals_note": "Opportunity totals sum known values only; consult missing counts before comparing to the full-season summary."
+  },
+  {
+    "season": "2025-26",
+    "games": 25,
+    "totals": {
+      "goals_for": 21,
+      "goals_against": 93,
+      "shots_for": 378,
+      "shots_against": 949,
+      "pp_goals": 5,
+      "pp_opportunities": 78,
+      "opponent_pp_goals": 22,
+      "opponent_pp_opportunities": 92
+    },
+    "summary": {
+      "goals_for": 21,
+      "shots_for": 378,
+      "goals_against": 93,
+      "shots_against": 949,
+      "pp_goals": 5,
+      "pp_opportunities": 78,
+      "opponent_pp_goals": 22,
+      "opponent_pp_opportunities": 91
+    },
+    "missing": {
+      "goals_for": 0,
+      "goals_against": 0,
+      "shots_for": 0,
+      "shots_against": 0,
+      "pp_goals": 0,
+      "pp_opportunities": 0,
+      "opponent_pp_goals": 0,
+      "opponent_pp_opportunities": 0
+    },
+    "locations": {
+      "home": 13,
+      "away": 12,
+      "neutral": 0
+    },
+    "source_url": "https://vikings.lawrence.edu/sports/womens-ice-hockey/stats/2025-26",
+    "retrieved_on": "2026-09-25",
+    "totals_note": "Opportunity totals sum known values only; consult missing counts before comparing to the full-season summary."
+  }
+]

@@ -1,6 +1,6 @@
 # Your first session in VS Code
 
-**Data is now included:** 25 games from 2025–26 are in `data/raw/games.csv`. After installing dependencies, run `python -m src.prepare_data` before starting Streamlit. The collection steps below explain how to review or extend the dataset. See `sources.md` for the unresolved power-play discrepancy.
+**Data is now included:** 138 games across 2020–21 through 2025–26 are in `data/raw/games.csv`. After installing dependencies, run `python -m src.prepare_data` before starting Streamlit. The collection steps below explain how to review or extend the dataset. See `sources.md` for missing values and unresolved power-play discrepancies.
 
 ## 1. Open the project
 
@@ -31,7 +31,7 @@ Open the local URL printed in the terminal. An empty-data message means you need
 
 Open the official statistics page linked in `sources.md`; select 2025–26 if the default season changed. Open each game's box score. Edit `data/raw/games.csv` directly in VS Code: one line per game, with values in the header's exact order. Read `data-dictionary.md` first. CSV is a text format; no Excel is required. Put text containing a comma in double quotes.
 
-Record counts from Lawrence's perspective, even for away games. Keep one opponent spelling throughout. Use YYYY-MM-DD dates and lowercase home/away/neutral. Record each game's source URL. Do not use zero for unavailable data. This first version requires all statistics to be verified before import.
+Record counts from Lawrence's perspective, even for away games. Keep one opponent spelling throughout. Use YYYY-MM-DD dates and lowercase home/away/neutral. Record each game's source URL. Do not use zero for unavailable data. Only the two opportunity columns may be blank when the source omits them. Such blanks become NULL and the affected rates show N/A; other fields must be verified before import.
 
 ## 5. Prepare the data
 

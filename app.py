@@ -8,18 +8,40 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.prepare_data import OUTPUT
+from src.metrics import special_teams_rate
 
 BLUE, SLATE, TEAL = "#2563EB", "#7C8DA8", "#087F8C"
 LOCATION_ORDER = ["home", "away", "neutral"]
+SOURCE_NOTES = {
+    "2021-22": "January 28 vs Finlandia: the season game table lists zero Lawrence power-play goals; "
+               "the box score lists one. The dataset retains the season game-table value. This conflict is unresolved.",
+    "2024-25": "Known Lawrence power-play opportunities total 74, with one game missing, versus 72 in the season summary. "
+               "Opponent opportunities total 92 versus 91. Box-score counts are retained; full-season power play is N/A "
+               "and penalty kill is 82.6% (versus 82.4% using the summary).",
+    "2025-26": "Opponent power-play opportunities total 92 across individual box scores, versus 91 in the season summary. "
+               "Box-score counts are retained; full-season penalty kill is 76.1% (versus 75.8% using the summary).",
+}
 st.set_page_config(page_title="Lawrence | Hockey Analytics", page_icon="🏒", layout="wide")
 st.markdown(f"<style>{(Path(__file__).parent / 'assets/dashboard.css').read_text()}</style>", unsafe_allow_html=True)
 
 
 def percentage(numerator, denominator, complement=False):
-    if denominator == 0:
+    if pd.isna(numerator) or pd.isna(denominator) or denominator == 0:
         return "N/A"
     value = numerator / denominator
     return f"{100 * (1 - value if complement else value):.1f}%"
+
+
+def count(value):
+    return "N/A" if pd.isna(value) else str(int(value))
+
+
+def opportunity_detail(frame, goals, opportunities, complement=False):
+    missing = int(frame[opportunities].isna().sum())
+    if missing:
+        return f"Chance counts missing in {missing} of {len(frame)} games"
+    suffix = "goals allowed" if complement else "goals"
+    return f"{count(frame[goals].sum())} {suffix} / {count(frame[opportunities].sum())} chances"
 
 
 def metric(label, value, detail):
@@ -75,6 +97,7 @@ with st.sidebar:
     st.markdown('<div class="sidebar-brand"><span class="brand-mark">LH</span>'
                 '<div>LAWRENCE<span>HOCKEY ANALYTICS</span></div></div>', unsafe_allow_html=True)
     st.caption("Women's ice hockey · Team performance")
+    st.caption(f"{len(all_games)} games · {all_games.season.nunique()} seasons in the archive")
     st.divider()
     st.markdown("#### Your game selection")
     season = st.selectbox("Season", sorted(all_games["season"].unique(), reverse=True))
@@ -126,21 +149,27 @@ st.markdown(
 
 st.markdown('<div class="section-kicker">PERFORMANCE SNAPSHOT <span>Current selection</span></div>', unsafe_allow_html=True)
 stats = [
-    ("Goals / game", f"{games.goals_for.mean():.2f}", f"{totals.goals_for} goals in {len(games)} games"),
-    ("Shots / game", f"{games.shots_for.mean():.1f}", f"{totals.shots_for} shots on goal"),
+    ("Goals / game", f"{games.goals_for.mean():.2f}", f"{count(totals.goals_for)} goals in {len(games)} games"),
+    ("Shots / game", f"{games.shots_for.mean():.1f}", f"{count(totals.shots_for)} shots on goal"),
     ("Shooting", percentage(totals.goals_for, totals.shots_for), "Goals ÷ shots on goal"),
-    ("Power play", percentage(totals.pp_goals, totals.pp_opportunities), f"{totals.pp_goals} goals / {totals.pp_opportunities} chances"),
-    ("Penalty kill", percentage(totals.opponent_pp_goals, totals.opponent_pp_opportunities, True),
-     f"{totals.opponent_pp_goals} goals allowed / {totals.opponent_pp_opportunities} chances")]
+    ("Power play", special_teams_rate(games, "pp_goals", "pp_opportunities"),
+     opportunity_detail(games, "pp_goals", "pp_opportunities")),
+    ("Penalty kill", special_teams_rate(games, "opponent_pp_goals", "opponent_pp_opportunities", True),
+     opportunity_detail(games, "opponent_pp_goals", "opponent_pp_opportunities", True))]
 with st.container(key="performance_cards"):
     for card, values in zip(st.columns(5), stats):
         with card:
             metric(*values)
-if season == "2025-26":
-    st.caption("ⓘ Penalty kill uses individual box scores. Their season total is 92 opponent chances; "
-               "the published summary lists 91. Details in Data notes below.")
+missing_pp = int(games.pp_opportunities.isna().sum())
+missing_pk = int(games.opponent_pp_opportunities.isna().sum())
+if missing_pp or missing_pk:
+    st.info(f"Opportunity counts are missing for power play in {missing_pp} of {len(games)} games "
+            f"and penalty kill in {missing_pk}. Affected rates show N/A. Goals and shots are complete.")
+if season in SOURCE_NOTES:
+    st.caption(f"ⓘ {season} source note: {SOURCE_NOTES[season]} Details in Data notes below.")
 
-overview, special_teams, game_review = st.tabs(["Team overview", "Special teams", "Game review"])
+overview, special_teams, game_review, season_comparison = st.tabs(
+    ["Team overview", "Special teams", "Game review", "Season comparison"])
 with overview:
     left, right = st.columns([1.65, 1], gap="large")
     with left, st.container(border=True, key="panel_scoring"):
@@ -164,7 +193,7 @@ with overview:
         st.caption("Shots on goal for and against")
         trend_chart(games, ["shots_for", "shots_against"], ["Lawrence", "Opponents"], "Shots on goal")
     with right, st.container(border=True, key="panel_venue"):
-        st.subheader("Home & away")
+        st.subheader("Scoring by venue")
         st.caption("Average goals per game by venue")
         locations = [value for value in LOCATION_ORDER if value in games.location.values]
         comparison = games.groupby("location")[["goals_for", "goals_against"]].mean().reindex(locations)
@@ -186,21 +215,29 @@ with special_teams:
         (left, "Power play", "pp_goals", "pp_opportunities", False, BLUE),
         (right, "Penalty kill", "opponent_pp_goals", "opponent_pp_opportunities", True, TEAL)]:
         with panel, st.container(border=True, key=f"panel_{goals_col}"):
-            goals, chances = int(totals[goals_col]), int(totals[chances_col])
-            successful = chances - goals if complement else goals
             st.subheader(label)
-            st.metric("Success rate", percentage(goals, chances, complement))
-            st.caption(f"{successful} {'kills' if complement else 'goals'} across {chances} opportunities")
-            if chances:
-                st.progress(successful / chances)
+            st.metric("Success rate", special_teams_rate(games, goals_col, chances_col, complement))
+            known = games.dropna(subset=[goals_col, chances_col])
+            st.caption(opportunity_detail(games, goals_col, chances_col, complement))
+            if len(known) == len(games):
+                goals, chances = int(totals[goals_col]), int(totals[chances_col])
+                successful = chances - goals if complement else goals
+                if chances:
+                    st.progress(successful / chances)
+                else:
+                    st.caption("No opportunities in this selection; the rate is unavailable.")
             else:
-                st.caption("No opportunities in this selection; the rate is unavailable.")
+                st.caption(f"The chart includes {len(known)} of {len(games)} games with recorded counts. "
+                           "Games with missing counts are omitted.")
+            if known.empty:
+                st.info("No recorded opportunity counts to chart in this selection.")
+                continue
             fig = go.Figure()
-            values = games[chances_col] - games[goals_col] if complement else games[goals_col]
-            custom = games[["opponent", chances_col]].values
-            fig.add_bar(x=games.date, y=values, name="Kills" if complement else "Goals", marker_color=color,
+            values = known[chances_col] - known[goals_col] if complement else known[goals_col]
+            custom = known[["opponent", chances_col]].values
+            fig.add_bar(x=known.date, y=values, name="Kills" if complement else "Goals", marker_color=color,
                         customdata=custom, hovertemplate="%{x|%b %d}<br>%{customdata[0]}<br>%{y} successful / %{customdata[1]} chances<extra></extra>")
-            fig.add_bar(x=games.date, y=games[chances_col] - values,
+            fig.add_bar(x=known.date, y=known[chances_col] - values,
                         name="Goals allowed" if complement else "No goal", marker_color="#DDE5F0",
                         customdata=custom, hovertemplate="%{x|%b %d}<br>%{customdata[0]}<br>%{y} unsuccessful / %{customdata[1]} chances<extra></extra>")
             fig.update_layout(barmode="stack")
@@ -217,10 +254,10 @@ with game_review:
     with left, st.container(border=True, key="panel_game"):
         comparison = pd.DataFrame({
             "Statistic": ["Goals", "Shots on goal", "Shooting", "Power play", "Penalty kill"],
-            "Lawrence": [str(game.goals_for), str(game.shots_for), percentage(game.goals_for, game.shots_for),
-                         f"{game.pp_goals} / {game.pp_opportunities}", percentage(game.opponent_pp_goals, game.opponent_pp_opportunities, True)],
-            "Opponent": [str(game.goals_against), str(game.shots_against), percentage(game.goals_against, game.shots_against),
-                         f"{game.opponent_pp_goals} / {game.opponent_pp_opportunities}", percentage(game.pp_goals, game.pp_opportunities, True)]})
+            "Lawrence": [count(game.goals_for), count(game.shots_for), percentage(game.goals_for, game.shots_for),
+                         f"{count(game.pp_goals)} / {count(game.pp_opportunities)}", percentage(game.opponent_pp_goals, game.opponent_pp_opportunities, True)],
+            "Opponent": [count(game.goals_against), count(game.shots_against), percentage(game.goals_against, game.shots_against),
+                         f"{count(game.opponent_pp_goals)} / {count(game.opponent_pp_opportunities)}", percentage(game.pp_goals, game.pp_opportunities, True)]})
         st.dataframe(comparison, hide_index=True, use_container_width=True)
     with right:
         st.markdown(f"**{game.date:%B %d, %Y} · {game.location.title()}**")
@@ -230,7 +267,7 @@ with game_review:
     st.markdown("#### Game log")
     log = games.sort_values("date", ascending=False).copy()
     log["score"] = log.goals_for.astype(str) + " – " + log.goals_against.astype(str)
-    log["power_play"] = log.pp_goals.astype(str) + " / " + log.pp_opportunities.astype(str)
+    log["power_play"] = log.pp_goals.map(count) + " / " + log.pp_opportunities.map(count)
     log["location"] = log.location.str.title()
     st.dataframe(log[["date", "opponent", "location", "score", "shots_for", "shots_against", "power_play", "source_url"]],
         hide_index=True, use_container_width=True, column_config={
@@ -242,14 +279,55 @@ with game_review:
     export["date"] = export.date.dt.strftime("%Y-%m-%d")
     st.download_button("Download selected games ↓", export.to_csv(index=False), "lawrence_selected_games.csv", "text/csv")
 
+with season_comparison:
+    st.subheader("The bigger picture")
+    st.caption("Full-season comparison across all venues and opponents, including every archived game. "
+               "Use the other tabs to review your sidebar selection.")
+    summary_rows = []
+    for archived_season, frame in all_games.groupby("season", sort=True):
+        summary_rows.append({
+            "season": archived_season, "games": len(frame),
+            "goals_for": frame.goals_for.mean(), "goals_against": frame.goals_against.mean(),
+            "shots_for": frame.shots_for.mean(),
+            "shooting": percentage(frame.goals_for.sum(), frame.shots_for.sum()),
+            "power_play": special_teams_rate(frame, "pp_goals", "pp_opportunities"),
+            "penalty_kill": special_teams_rate(frame, "opponent_pp_goals", "opponent_pp_opportunities", True),
+            "pp_coverage": f"{frame.pp_opportunities.notna().sum()} / {len(frame)}",
+            "pk_coverage": f"{frame.opponent_pp_opportunities.notna().sum()} / {len(frame)}",
+        })
+    summary = pd.DataFrame(summary_rows)
+    with st.container(border=True, key="panel_seasons"):
+        st.subheader("Scoring across seasons")
+        st.caption("Goals per game keeps seasons with different game counts comparable.")
+        fig = go.Figure()
+        for column, name, color in [("goals_for", "Lawrence", BLUE), ("goals_against", "Opponents", SLATE)]:
+            fig.add_bar(x=summary.season, y=summary[column], name=name, marker_color=color,
+                        customdata=summary[["games"]].values,
+                        hovertemplate="%{x} · %{customdata[0]} games<br>%{y:.2f} goals / game<extra>%{fullData.name}</extra>")
+        fig.update_layout(barmode="group", bargap=0.35)
+        fig.update_xaxes(type="category")
+        style_chart(fig, "Goals / game")
+    st.dataframe(summary, hide_index=True, use_container_width=True, column_config={
+        "season": "Season", "games": "Games",
+        "goals_for": st.column_config.NumberColumn("Goals / game", format="%.2f"),
+        "goals_against": st.column_config.NumberColumn("Allowed / game", format="%.2f"),
+        "shots_for": st.column_config.NumberColumn("Shots / game", format="%.1f"),
+        "shooting": "Shooting", "power_play": "Power play", "penalty_kill": "Penalty kill",
+        "pp_coverage": "PP counts available", "pk_coverage": "PK counts available",
+    })
+    st.caption("Coverage is games with recorded opportunity counts / total games. "
+               "N/A means a count is missing or the total denominator is zero. Opponents and schedules vary by season.")
+    with st.expander("Historical source conflicts"):
+        for note_season, note in SOURCE_NOTES.items():
+            st.write(f"**{note_season}:** {note}")
+
 with st.expander("Data notes & sources"):
     st.markdown("**Source:** Public Lawrence Athletics game statistics. Each game links to its original box score in Game review.")
     st.write("Percentages are calculated from summed goals and opportunities, not averages of game percentages. "
-             "Zero opportunities produce N/A. Shots are shots on goal. Scores exclude shootout attempts.")
-    if season == "2025-26":
-        st.warning("2025–26 penalty-kill discrepancy: individual box scores total 92 opponent power-play opportunities; "
-                   "the published season summary lists 91. This dashboard uses 92, giving a full-season penalty kill "
-                   "of 76.1% (versus 75.8% with 91). The source discrepancy remains unresolved.")
+             "Missing or zero opportunity counts produce N/A. Missing values stay blank in downloaded CSVs. "
+             "Shots are shots on goal. Scores exclude shootout attempts.")
+    if season in SOURCE_NOTES:
+        st.warning(f"{season}: {SOURCE_NOTES[season]}")
     st.caption("Small samples, opponent strength, and schedule differences affect comparisons. "
                "These team statistics describe outcomes; they do not establish causes or measure individual player performance.")
 

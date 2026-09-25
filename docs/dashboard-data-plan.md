@@ -2,9 +2,9 @@
 
 ## What is ready now
 
-The current dataset contains 25 completed 2025–26 games: 13 home and 12 away. Each game has a date, opponent, location, goals, shots on goal, both teams' power-play goals and opportunities, and a source box-score URL.
+The current dataset contains 138 completed games across six seasons, 2020–21 through 2025–26. Each game has a date, opponent, location, goals, shots on goal, both teams' power-play goals, and a source box-score URL. Opportunity counts are partly missing: 23 games have at least one missing count. These remain unavailable rather than being replaced with zero.
 
-This supports a useful team review dashboard now: recent results, goals and shot trends, goal and shot differential, shooting percentage, power-play and penalty-kill rates, rolling team performance, and home/away or opponent comparisons. Show the number of games and opportunities behind each comparison, and make each game's source accessible.
+This supports a useful team review dashboard now: recent scores, goals and shot trends, shooting percentage, special-teams rates when counts are complete, recent-game windows, venue/opponent filters, and full-season comparisons. The dashboard shows sample sizes and opportunity-data coverage and makes each game's source accessible. Goal and shot differentials can also be derived from the existing data.
 
 Scores and shots describe team outcomes. Individual contributions, ice time, line combinations, shot quality, and expected goals are not in this dataset. Team shots on goal should not be labeled possession or shot attempts.
 
@@ -25,7 +25,7 @@ Join dates, opponents, and locations through `game_id`, and names, numbers, and 
 
 ## Priority 2: context for coaching decisions
 
-- **Previous seasons:** collect the same game fields and inclusion rules for at least one earlier season. Compare rates over equivalent samples and show games played alongside totals.
+- **Season history:** all six archived seasons are now included and available in the season-comparison view. Continue the same fields and inclusion rules as later seasons become available; filling historical opportunity gaps would improve special-teams comparisons.
 - **Conference context:** collect comparable team season totals, conference membership, and a source/update date. Identify whether each comparison uses all games or conference games. Calculate rates from summed counts rather than averaging percentages.
 - **Upcoming schedule:** add scheduled date/time, time zone, opponent, venue, home/away, and schedule status. Keep upcoming games separate from completed games with statistics so they do not become zero-score results.
 - **Period and game-state breakdowns:** period scoring and shots, and even-strength/power-play/short-handed splits, would show when performance changes. Individual ice time or shift data would be needed before showing per-60 player rates or line analysis; neither is currently available.
@@ -44,6 +44,6 @@ An approved Lawrence logo, official color values, and a high-resolution team or 
 
 ## Reconcile before extending
 
-The collection log in [sources.md](sources.md) records an unresolved opponent power-play denominator: individual box scores total 92 opportunities while the team summary reports 91. The dashboard uses 92, yielding 76.1% PK, and should retain its source note until this is resolved.
+The collection log in [sources.md](sources.md) records historical missing counts and unresolved conflicts in 2021–22, 2024–25, and 2025–26. For example, 2025–26 opponent power-play opportunities total 92 in box scores versus 91 in the summary. The dashboard uses 92, yielding 76.1% PK. Retain the notes and N/A safeguards until the gaps and conflicts are resolved.
 
 The source player table also includes a duplicate player row and shot totals that differ from the team tables. Reconcile player records before publishing leaderboards. Check goalie totals separately for empty-net goals, preserve source links, and continue showing missing values explicitly. A CSV export or links to the relevant official tables are sufficient to begin the next data collection step.
