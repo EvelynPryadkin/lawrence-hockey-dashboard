@@ -1,0 +1,21 @@
+{
+  "raw_csv_sha256": "59fff0b72f9978ebbdbc0629f38c2e3d5c77344cfe057a743c19a437430c585a",
+  "sql_sha256": "b3e730f260f187ddd4a39f3c5dba5dcf166b93ffd1ffacf806bd98252ca5f2d1",
+  "games": 138,
+  "seasons": [
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24",
+    "2024-25",
+    "2025-26"
+  ],
+  "result_rows": {
+    "season_venue_comparison": 13,
+    "special_teams_coverage": 6,
+    "opponent_comparison": 64,
+    "season_over_season": 6,
+    "rolling_five_games": 138
+  },
+  "missing_values": "Empty CSV cells represent SQL NULL, not zero."
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lawrence hockey — project walkthrough</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #152b45; background: #f3f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1080px; margin: 0 auto; padding: 56px 24px; }
+    .eyebrow { font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: #52617a; }
+    h1 { font-size: clamp(30px, 5vw, 48px); letter-spacing: -1.5px; margin: 14px 0; }
+    p { line-height: 1.7; max-width: 760px; }
+    a { color: #245dc4; }
+    video { display: block; width: 100%; margin-top: 28px; background: #11253e; border: 1px solid #dbe4f0; border-radius: 16px; }
+    .note { color: #52617a; font-size: 13px; }
+    .numbers { display: flex; gap: 16px; flex-wrap: wrap; margin: 30px 0; }
+    .numbers div { flex: 1; min-width: 155px; background: white; border: 1px solid #e3eaf3; padding: 20px; border-radius: 12px; }
+    .numbers strong { display: block; font-size: 30px; margin-bottom: 4px; }
+    .numbers span { font-size: 13px; color: #52617a; }
+    h2 { margin-top: 38px; font-size: 24px; letter-spacing: -.5px; }
+    h3 { font-size: 17px; }
+    details { margin: 16px 0; border: 1px solid #dbe4f0; border-radius: 12px; background: #fff; padding: 16px; }
+    summary { cursor: pointer; font-weight: 600; }
+    details img { display: block; width: 100%; height: auto; margin-top: 16px; border-radius: 8px; }
+    footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dbe4f0; font-size: 12px; color: #52617a; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Independent data analytics project</div>
+  <h1>Six seasons of Lawrence hockey</h1>
+  <p>A dashboard for comparing scoring, shots, and special teams across 138 women's hockey games. This short recording shows the main views and how the app handles gaps in the historical data.</p>
+  <video controls playsinline preload="metadata" poster="media/01-overview.png" aria-label="36-second captioned dashboard walkthrough">
+    <source src="media/dashboard-walkthrough.mp4" type="video/mp4">
+    Your browser cannot play this video. The same six steps are available below.
+  </video>
+  <p class="note">36 seconds · Captions included · No audio. This page is a recorded walkthrough; filters are demonstrated in the video.</p>
+  <div class="numbers"><div><strong>138</strong><span>games, 2020–21 to 2025–26</span></div><div><strong>135</strong><span>Lawrence goals</span></div><div><strong>2,453</strong><span>Lawrence shots on goal</span></div></div>
+  <h2>What the analysis found</h2>
+  <h3>Scoring and shot volume both fell in the most recent season.</h3>
+  <p>Lawrence scored 1.37 goals per game in 2024–25 and 0.84 in 2025–26. Shots per game fell from 18.22 to 15.12, while shooting percentage fell from 7.52% to 5.56%. Those figures describe the change; they do not identify its cause.</p>
+  <h3>Historical special-teams comparisons need care.</h3>
+  <p>23 games have at least one missing power-play opportunity count. The dashboard keeps those values missing and shows N/A when a complete rate cannot be calculated. Source conflicts are recorded alongside the results.</p>
+  <p>Read the <a href="findings.md">three findings and their limits</a>, <a href="sql-guide.md">SQL explanations</a>, and <a href="analysis/season_over_season.csv">saved season comparison</a>. The app uses Python, pandas, SQLite, Streamlit, and Plotly.</p>
+  <h2>The walkthrough, step by step</h2>
+  <details><summary>1. Start with a season</summary><p>The overview shows scoring, shots, special teams, and recent games.</p><img src="media/01-overview.png" alt="2025–26 overview showing 25 games and performance cards" loading="lazy"></details>
+  <details><summary>2. Include every season</summary><p>Select All seasons to combine the full archive. Venue, opponent, and recent-game filters still apply.</p><img src="media/02-all-seasons.png" alt="All seasons selected with 138 games and historical coverage notes" loading="lazy"></details>
+  <details><summary>3. Check the totals</summary><p>The selected-game totals table gives the counts behind the averages and percentages.</p><img src="media/03-totals.png" alt="Totals for Lawrence and opponents across all archived games" loading="lazy"></details>
+  <details><summary>4. Compare full seasons</summary><p>This view keeps season totals, game counts, and opportunity-data coverage together.</p><img src="media/04-season-comparison.png" alt="Six-season comparison with scoring chart and season statistics" loading="lazy"></details>
+  <details><summary>5. Check data coverage</summary><p>A missing count is different from zero. Rates stay unavailable when their denominators are incomplete.</p><img src="media/05-special-teams.png" alt="Special-teams panels with N/A rates and chart coverage explanations" loading="lazy"></details>
+  <details><summary>6. Review one game</summary><p>Compare the two teams, open the original box score, or download the selected games.</p><img src="media/06-game-review.png" alt="Game comparison, original source link, and game log" loading="lazy"></details>
+  <footer>Independent student project using public Lawrence Athletics statistics. Not an official team product. No coach or player use is claimed.</footer>
+</main>
+</body>
+</html>

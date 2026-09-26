@@ -68,7 +68,9 @@ class DashboardTests(unittest.TestCase):
             "2024-25": (27, "N/A", "82.6%"),
             "2025-26": (25, "6.4%", "76.1%"),
         }
-        self.assertEqual(set(self.widget("selectbox", "Season").options), set(expected))
+        season_filter = self.widget("selectbox", "Season")
+        self.assertEqual(season_filter.value, "2025-26")
+        self.assertEqual(set(season_filter.options), {"All seasons", *expected})
         for season, (count, power_play, penalty_kill) in expected.items():
             with self.subTest(season=season):
                 self.widget("selectbox", "Season").select(season).run()
@@ -81,6 +83,54 @@ class DashboardTests(unittest.TestCase):
                 self.assertEqual(self.cards()["Penalty kill"], penalty_kill)
                 self.assertEqual([item.value for item in self.app.metric
                                   if item.label == "Success rate"], [power_play, penalty_kill])
+
+    def test_all_seasons_combines_games_and_uses_aggregate_rates(self):
+        self.widget("selectbox", "Season").select("All seasons").run()
+        self.assert_no_errors()
+        log = self.game_log()
+        self.assertEqual(len(log), 138)
+        self.assertEqual(set(log.source_url), set(self.games.source_url))
+        self.assertEqual(log.shots_for.sum(), 2453)
+        totals = next(item.value for item in self.app.dataframe
+                      if "Team" in item.value.columns).set_index("Team")
+        self.assertEqual(totals.loc["Lawrence", "Goals"], 135)
+        self.assertEqual(totals.loc["Lawrence", "Shots on goal"], 2453)
+        self.assertEqual(totals.loc["Opponents", "Goals"], self.games.goals_against.sum())
+        self.assertEqual(totals.loc["Opponents", "Shots on goal"], self.games.shots_against.sum())
+        self.assertEqual(totals["Power-play chances"].tolist(), ["N/A", "N/A"])
+
+        cards = self.cards()
+        self.assertEqual(cards["Goals / game"], f"{135 / 138:.2f}")
+        self.assertEqual(cards["Shots / game"], f"{2453 / 138:.1f}")
+        self.assertEqual(cards["Shooting"], f"{135 / 2453 * 100:.1f}%")
+        self.assertEqual(cards["Power play"], "N/A")
+        self.assertEqual(cards["Penalty kill"], "N/A")
+        self.assertEqual([item.value for item in self.app.metric
+                          if item.label == "Success rate"], ["N/A", "N/A"])
+
+        self.widget("selectbox", "Season").select("2025-26").run()
+        self.assert_no_errors()
+        expected = self.games.loc[self.games.season.eq("2025-26")]
+        self.assertEqual(len(self.game_log()), 25)
+        self.assertEqual(set(self.game_log().source_url), set(expected.source_url))
+        self.assertEqual(self.cards()["Power play"], "6.4%")
+        self.assertEqual(self.cards()["Penalty kill"], "76.1%")
+
+    def test_all_seasons_filters_find_latest_matching_games_across_archive(self):
+        self.widget("selectbox", "Season").select("All seasons").run()
+        self.widget("radio", "Venue").set_value("Away").run()
+        self.widget("multiselect", "Opponents").set_value(["Marian (WI)"]).run()
+        self.widget("selectbox", "Game window").select("Last 5 games").run()
+        self.assert_no_errors()
+
+        expected = self.games.loc[
+            self.games.location.eq("away") & self.games.opponent.eq("Marian (WI)")
+        ].tail(5)
+        self.assertEqual(len(self.game_log()), 5)
+        self.assertGreater(expected.season.nunique(), 1)
+        self.assertEqual(set(self.game_log().source_url), set(expected.source_url))
+        self.assertEqual(self.cards()["Shooting"],
+                         f"{expected.goals_for.sum() / expected.shots_for.sum() * 100:.1f}%")
 
     def test_individual_game_with_missing_opportunities_is_readable(self):
         self.widget("selectbox", "Season").select("2020-21").run()

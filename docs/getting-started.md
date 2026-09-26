@@ -1,56 +1,58 @@
-# Your first session in VS Code
+# Run the project
 
-**Data is now included:** 138 games across 2020–21 through 2025–26 are in `data/raw/games.csv`. After installing dependencies, run `python -m src.prepare_data` before starting Streamlit. The collection steps below explain how to review or extend the dataset. See `sources.md` for missing values and unresolved power-play discrepancies.
+The data is already included: 138 games across six seasons. You can start by exploring the dashboard, then follow a result back to its calculation and original box score.
 
-## 1. Open the project
+## Set up Python
 
-Unzip the download if needed. In VS Code choose File → Open Folder and select `lawrence-hockey-dashboard`. Open Terminal → New Terminal. The terminal should be inside the folder containing `app.py`.
-
-## 2. Create your Python environment
-
-Use Python 3.11 or newer. On macOS:
+Open the project folder in VS Code and choose **Terminal → New Terminal**. Python 3.12 is a good choice for a new environment.
 
 ```bash
-python3 --version
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-The `.venv` folder keeps this project's packages separate. When opening a new terminal later, run `source .venv/bin/activate` again. If using the VS Code Python extension, select `.venv` as the interpreter.
+Activate `.venv` again when you open a new terminal. If you use the VS Code Python extension, select `.venv` as the interpreter.
 
-## 3. Open your dashboard
-
-```bash
-python -m streamlit run app.py
-```
-
-Open the local URL printed in the terminal. An empty-data message means you need to run the preparation command first. Control-C stops the server; it does not delete your work.
-
-## 4. Collect five real games
-
-Open the official statistics page linked in `sources.md`; select 2025–26 if the default season changed. Open each game's box score. Edit `data/raw/games.csv` directly in VS Code: one line per game, with values in the header's exact order. Read `data-dictionary.md` first. CSV is a text format; no Excel is required. Put text containing a comma in double quotes.
-
-Record counts from Lawrence's perspective, even for away games. Keep one opponent spelling throughout. Use YYYY-MM-DD dates and lowercase home/away/neutral. Record each game's source URL. Do not use zero for unavailable data. Only the two opportunity columns may be blank when the source omits them. Such blanks become NULL and the affected rates show N/A; other fields must be verified before import.
-
-## 5. Prepare the data
+## Open the dashboard
 
 ```bash
 python -m src.prepare_data
+python -m streamlit run app.py
 ```
 
-If a validation error appears, inspect the raw row and its source. Successful preparation creates `data/processed/games_clean.csv` and `data/processed/hockey.db`. Rerun after changing the raw data; refreshing the dashboard alone will not import changes.
+Open the local URL printed in the terminal. Try **All seasons** with all venues, all opponents, and all games selected. The totals should show 138 games, 135 Lawrence goals, and 2,453 Lawrence shots. Power play and penalty kill show N/A for this selection because historical opportunity counts are incomplete.
 
-## 6. Analyze and document
+Choose a single season or opponent to narrow the view. In **Game review**, open an original box score and compare it with the displayed statistics. Control-C stops the server.
 
-With the SQLite command-line tool installed, run:
+## Check a finding
+
+```bash
+python -m src.run_analysis
+```
+
+This regenerates the saved CSV results in `docs/analysis/` from the validated raw records. Read [findings.md](findings.md) alongside [sql-guide.md](sql-guide.md). Pick a result and explain the numerator, denominator, sample size, and limitation in your own words.
+
+You can also run the SQL directly against the generated database:
 
 ```bash
 sqlite3 -header -column data/processed/hockey.db < sql/analysis.sql
 ```
 
-Alternatively open `hockey.db` with a SQLite viewer and paste queries from `sql/analysis.sql`. Explain one query in your own words, then write one supported finding in `docs/findings.md`. Collect the rest of the season after validating these first five games.
+## Update the data
 
-## 7. Commit meaningful progress
+Read [data-dictionary.md](data-dictionary.md) before editing `data/raw/games.csv`. Each row is one game. Keep opponent names consistent and preserve the source URL. Only the two opportunity fields may be blank; zero is a known count, not a substitute for missing data.
 
-Use VS Code's Source Control view to review changed files, stage the relevant ones, and commit. Suggested milestones: initial scaffold; first five verified games; season validation; findings and screenshot. Never commit `.venv`, credentials, or secrets.
+After making a verified correction:
+
+```bash
+python -m src.prepare_data
+python -m src.run_analysis
+python -m unittest discover -s tests -v
+```
+
+Update the source log and any findings affected by the correction. Refresh the running dashboard. Generated databases are ignored by Git; the saved analysis evidence is tracked so a reader can inspect it without running Python.
+
+## Share the project
+
+The [walkthrough video](media/dashboard-walkthrough.mp4) can be sent as a file. Open `docs/walkthrough.html` in a browser for the video and step-by-step screenshots. See [deployment.md](deployment.md) for live hosting and [portfolio-notes.md](portfolio-notes.md) for résumé wording and interview practice.

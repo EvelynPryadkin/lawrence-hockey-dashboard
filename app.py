@@ -9,6 +9,7 @@ import streamlit as st
 
 from src.prepare_data import OUTPUT
 from src.metrics import special_teams_rate
+from src.dashboard_data import load_games
 
 BLUE, SLATE, TEAL = "#2563EB", "#7C8DA8", "#087F8C"
 LOCATION_ORDER = ["home", "away", "neutral"]
@@ -68,27 +69,26 @@ def style_chart(fig, y_title, height=310):
 def trend_chart(frame, columns, names, y_title):
     fig = go.Figure()
     for column, name, color, dash in zip(columns, names, [BLUE, SLATE], ["solid", "dash"]):
-        fig.add_trace(go.Scatter(
-            x=frame["date"], y=frame[column], name=name, mode="lines+markers",
-            line=dict(color=color, width=3, dash=dash), marker=dict(size=7),
-            customdata=frame[["opponent", "location"]].values,
-            hovertemplate=("%{x|%b %d, %Y}<br>%{customdata[0]} · %{customdata[1]}"
-                           f"<br>{name}: %{{y}}<extra></extra>")))
-    fig.update_xaxes(type="date", tickformat="%b %d", nticks=7)
+        for index, (_, season_frame) in enumerate(frame.groupby("season", sort=True)):
+            fig.add_trace(go.Scatter(
+                x=season_frame["date"], y=season_frame[column], name=name, mode="lines+markers",
+                legendgroup=name, showlegend=index == 0,
+                line=dict(color=color, width=3, dash=dash), marker=dict(size=7),
+                customdata=season_frame[["opponent", "location", "season"]].values,
+                hovertemplate=("%{x|%b %d, %Y}<br>%{customdata[0]} · %{customdata[1]}"
+                               f"<br>Season %{{customdata[2]}}<br>{name}: %{{y}}<extra></extra>")))
+    fig.update_xaxes(type="date", tickformat="%b %Y" if frame.season.nunique() > 1 else "%b %d", nticks=7)
     style_chart(fig, y_title)
 
 
 database = OUTPUT / "hockey.db"
-if not database.exists():
+try:
+    all_games = load_games(database)
+except (OSError, ValueError, TypeError, sqlite3.Error, pd.errors.DatabaseError) as error:
     st.title("Lawrence Hockey Analytics")
-    st.info("Import the included game statistics to open your dashboard.")
-    st.code("python -m src.prepare_data", language="bash")
-    st.caption("Run this from the project folder, then refresh the page.")
+    st.error(f"Game data could not be loaded: {error}")
+    st.caption("Check data/raw/games.csv and run python -m src.prepare_data after correcting it.")
     st.stop()
-
-with sqlite3.connect(database) as connection:
-    all_games = pd.read_sql_query("SELECT * FROM games ORDER BY date, opponent", connection)
-all_games["date"] = pd.to_datetime(all_games["date"])
 if all_games.empty:
     st.info("No games have been imported yet. Run python -m src.prepare_data to load the data.")
     st.stop()
@@ -100,8 +100,9 @@ with st.sidebar:
     st.caption(f"{len(all_games)} games · {all_games.season.nunique()} seasons in the archive")
     st.divider()
     st.markdown("#### Your game selection")
-    season = st.selectbox("Season", sorted(all_games["season"].unique(), reverse=True))
-    season_games = all_games[all_games["season"] == season]
+    seasons = sorted(all_games["season"].unique(), reverse=True)
+    season = st.selectbox("Season", ["All seasons", *seasons], index=1)
+    season_games = all_games if season == "All seasons" else all_games[all_games["season"] == season]
     location = st.radio("Venue", ["All", "Home", "Away", "Neutral"], horizontal=True)
     opponents = st.multiselect("Opponents", sorted(season_games["opponent"].unique()), placeholder="All opponents")
     window = st.selectbox("Game window", ["All games", "Last 5 games", "Last 10 games"])
@@ -165,8 +166,12 @@ missing_pk = int(games.opponent_pp_opportunities.isna().sum())
 if missing_pp or missing_pk:
     st.info(f"Opportunity counts are missing for power play in {missing_pp} of {len(games)} games "
             f"and penalty kill in {missing_pk}. Affected rates show N/A. Goals and shots are complete.")
+selected_source_notes = {value: SOURCE_NOTES[value] for value in sorted(games.season.unique())
+                         if value in SOURCE_NOTES}
 if season in SOURCE_NOTES:
     st.caption(f"ⓘ {season} source note: {SOURCE_NOTES[season]} Details in Data notes below.")
+elif selected_source_notes:
+    st.caption(f"ⓘ Source conflicts affect {', '.join(selected_source_notes)}. See Data notes below.")
 
 overview, special_teams, game_review, season_comparison = st.tabs(
     ["Team overview", "Special teams", "Game review", "Season comparison"])
@@ -206,6 +211,16 @@ with overview:
                         hovertemplate="%{x}<br>%{y:.2f} goals / game<extra>%{fullData.name}</extra>")
         fig.update_layout(barmode="group", bargap=0.4)
         style_chart(fig, "Goals / game")
+    with st.expander(f"Selected-game totals · {len(games)} games", expanded=season == "All seasons"):
+        st.dataframe(pd.DataFrame({
+            "Team": ["Lawrence", "Opponents"],
+            "Goals": [int(totals.goals_for), int(totals.goals_against)],
+            "Shots on goal": [int(totals.shots_for), int(totals.shots_against)],
+            "Power-play goals": [int(totals.pp_goals), int(totals.opponent_pp_goals)],
+            "Power-play chances": ["N/A" if missing_pp else count(totals.pp_opportunities),
+                                   "N/A" if missing_pk else count(totals.opponent_pp_opportunities)],
+        }), hide_index=True, use_container_width=True)
+        st.caption("Totals cover every game in your selection. Opportunity totals show N/A when any selected count is missing.")
 
 with special_teams:
     st.subheader("Make every opportunity count")
@@ -236,12 +251,12 @@ with special_teams:
             values = known[chances_col] - known[goals_col] if complement else known[goals_col]
             custom = known[["opponent", chances_col]].values
             fig.add_bar(x=known.date, y=values, name="Kills" if complement else "Goals", marker_color=color,
-                        customdata=custom, hovertemplate="%{x|%b %d}<br>%{customdata[0]}<br>%{y} successful / %{customdata[1]} chances<extra></extra>")
+                        customdata=custom, hovertemplate="%{x|%b %d, %Y}<br>%{customdata[0]}<br>%{y} successful / %{customdata[1]} chances<extra></extra>")
             fig.add_bar(x=known.date, y=known[chances_col] - values,
                         name="Goals allowed" if complement else "No goal", marker_color="#DDE5F0",
-                        customdata=custom, hovertemplate="%{x|%b %d}<br>%{customdata[0]}<br>%{y} unsuccessful / %{customdata[1]} chances<extra></extra>")
+                        customdata=custom, hovertemplate="%{x|%b %d, %Y}<br>%{customdata[0]}<br>%{y} unsuccessful / %{customdata[1]} chances<extra></extra>")
             fig.update_layout(barmode="stack")
-            fig.update_xaxes(type="date", tickformat="%b %d", nticks=6)
+            fig.update_xaxes(type="date", tickformat="%b %Y" if known.season.nunique() > 1 else "%b %d", nticks=6)
             style_chart(fig, "Opportunities", height=300)
 
 with game_review:
@@ -269,9 +284,10 @@ with game_review:
     log["score"] = log.goals_for.astype(str) + " – " + log.goals_against.astype(str)
     log["power_play"] = log.pp_goals.map(count) + " / " + log.pp_opportunities.map(count)
     log["location"] = log.location.str.title()
-    st.dataframe(log[["date", "opponent", "location", "score", "shots_for", "shots_against", "power_play", "source_url"]],
+    st.dataframe(log[["date", "season", "opponent", "location", "score", "shots_for", "shots_against", "power_play", "source_url"]],
         hide_index=True, use_container_width=True, column_config={
             "date": st.column_config.DateColumn("Date", format="MMM D, YYYY"),
+            "season": "Season",
             "opponent": "Opponent", "location": "Venue", "score": "Score (LU – Opp)",
             "shots_for": "Shots for", "shots_against": "Shots against", "power_play": "PP goals / chances",
             "source_url": st.column_config.LinkColumn("Box score", display_text="View ↗")})
@@ -326,8 +342,8 @@ with st.expander("Data notes & sources"):
     st.write("Percentages are calculated from summed goals and opportunities, not averages of game percentages. "
              "Missing or zero opportunity counts produce N/A. Missing values stay blank in downloaded CSVs. "
              "Shots are shots on goal. Scores exclude shootout attempts.")
-    if season in SOURCE_NOTES:
-        st.warning(f"{season}: {SOURCE_NOTES[season]}")
+    for note_season, note in selected_source_notes.items():
+        st.warning(f"{note_season}: {note}")
     st.caption("Small samples, opponent strength, and schedule differences affect comparisons. "
                "These team statistics describe outcomes; they do not establish causes or measure individual player performance.")
 
